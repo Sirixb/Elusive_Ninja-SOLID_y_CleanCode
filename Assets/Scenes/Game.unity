@@ -734,7 +734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 291057803}
   _spriteRenderer: {fileID: 291057802}
-  _speed: 1
+  _initialSpeed: 1
 --- !u!212 &291057802 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5319447087059239287, guid: 6633bd362ae324a7aba5895f9012c7ce,
@@ -4536,6 +4536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4133569357898670370, guid: afccca6b2b43044d58de714f35580c01,
+        type: 3}
+      propertyPath: _lastGameDurationText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4672366437539157061, guid: afccca6b2b43044d58de714f35580c01,
         type: 3}
