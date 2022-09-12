@@ -1,19 +1,17 @@
 
 using UnityEngine;
 
-namespace Combat
+namespace IoLSolution
 {
-    public class Rogue : AbstractHero//, IDoRangeAttack, IDoMeleeAttack
+    public class Rogue : Hero
     {
-        //public override bool MeleeAttack => true;
-        //public override bool RangeAttack => true; 
         
-        private /*public*/ /*override*/ void DoMeleeAttack(IDoDamage opponent)
+        private void DoMeleeAttack(IDoDamage opponent)
         {
             opponent.AddDamage(10);
         }
 
-        private /*override*/ void DoRangeAttack(IDoDamage opponent)
+        private void DoRangeAttack(IDoDamage opponent)
         {
             opponent.AddDamage(10);
         }
@@ -27,11 +25,11 @@ namespace Combat
         {
             if (Random.Range(1, 100) > 50)
             {
-               DoMeleeAttack(opponent);
+                DoMeleeAttack(opponent);
             }
             else
             {
-               DoRangeAttack(opponent);
+                DoRangeAttack(opponent);
             }
         }
     }

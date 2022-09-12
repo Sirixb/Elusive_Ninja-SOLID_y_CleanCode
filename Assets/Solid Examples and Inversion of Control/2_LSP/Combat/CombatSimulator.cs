@@ -11,6 +11,7 @@ namespace Combat
             {
                 var opponent = team2[Random.Range(0, team2.Count - 1)];
 
+                //Incumple liskov porque pregunta por los tipos y openclose
                 //if (hero is Warrior)
                 //{
                 //    hero.DoMeleeAttack(opponent);
@@ -30,29 +31,27 @@ namespace Combat
                 //        hero.DoRangeAttack(opponent);
                 //    }
                 //}
-                hero.DoAttack(opponent);
 
-                //Solucion Profe
-                //if (hero.MeleeAttack && hero.RangeAttack)
-                //{
-                //    if (Random.Range(1, 100) > 50)
-                //    {
-                //        hero.DoMeleeAttack(opponent);
-                //    }
-                //    else
-                //    {
-                //        hero.DoRangeAttack(opponent);
-                //    }
-                //}
-                //else if (hero.MeleeAttack)
-                //{
-                //    hero.DoMeleeAttack(opponent);
-                //}
-                //else if (hero.RangeAttack)
-                //{
-                //    hero.DoRangeAttack(hero);
-                //}
-                
+                //Profe: Si se añade otro heroe no tendre que cambiar esta funcion pero seguimos teniendo metodos vacios en los heroes, se soluciona con Inversion de Control
+                if (hero.MeleeAttack && hero.RangeAttack)
+                {
+                    if (Random.Range(1, 100) > 50)
+                    {
+                        hero.DoMeleeAttack(opponent);
+                    }
+                    else
+                    {
+                        hero.DoRangeAttack(opponent);
+                    }
+                }
+                else if (hero.MeleeAttack)
+                {
+                    hero.DoMeleeAttack(opponent);
+                }
+                else if (hero.RangeAttack)
+                {
+                    hero.DoRangeAttack(hero);
+                }
             }
         }
     }
