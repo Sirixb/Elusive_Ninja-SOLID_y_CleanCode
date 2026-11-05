@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 
 public class FilePersistance : ILoader, ISaver
 {
@@ -7,23 +9,29 @@ public class FilePersistance : ILoader, ISaver
     
     public void SaveData(float duration)
     {
-        var writer = new StreamWriter(path, true);
-        Debug.Log(writer);
-        writer.WriteLine(duration);
-        writer.Close();
+        // Culture invariante: el archivo es el mismo en cualquier idioma del sistema
+        File.AppendAllText(path, duration.ToString(CultureInfo.InvariantCulture) + "\n");
     }
+
     public float LoadData()
     {
-        var reader = new StreamReader(path);
-        var durationString = (reader.ReadToEnd());
-        reader.Close();
-
-        if (!string.IsNullOrEmpty(durationString))
+        if (!File.Exists(path))
         {
-            return float.Parse(durationString);
+            return 0;
         }
 
-        return 0;
+        // El archivo guarda una duración por línea: la última es la partida más reciente
+        var lastLine = File.ReadAllLines(path).LastOrDefault(line => !string.IsNullOrWhiteSpace(line));
+        if (lastLine == null)
+        {
+            return 0;
+        }
+
+        // Las líneas antiguas pueden usar coma decimal (ej. "53,47268")
+        var normalized = lastLine.Trim().Replace(',', '.');
+        return float.TryParse(normalized, NumberStyles.Float, CultureInfo.InvariantCulture, out var duration)
+            ? duration
+            : 0;
     }
 
 }
