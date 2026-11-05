@@ -16,9 +16,8 @@ namespace DefaultNamespace
         {
 #if UNITY_EDITOR
             return new FilePersistance();
-#endif
-#if UNITY_ANDROID
-            retutn new PlayerPrefsPersistence();
+#else
+            return new PlayerPrefsPersistence();
 #endif
         }
 
@@ -26,11 +25,9 @@ namespace DefaultNamespace
         {
 #if UNITY_EDITOR
             return new FilePersistance();
-#endif
-#if UNITY_ANDROID
+#else
             return new PlayerPrefsPersistence();
 #endif
-            
         }
     }
 }
