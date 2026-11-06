@@ -12,11 +12,10 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        var /*player*/ doDamageComponet = other.collider.GetComponent</*HealtController*/IDamageReceiver>();
-        if (/*player*/ doDamageComponet != null)
+        var damageReceiver = other.collider.GetComponent<IDamageReceiver>();
+        if (damageReceiver != null)
         {
-            // Add damage and destroy the object
-            /*player*/doDamageComponet.ReceiveDamage(_damageWillCause);
+            damageReceiver.ReceiveDamage(_damageWillCause);
             Destroy(gameObject);
         }
         else

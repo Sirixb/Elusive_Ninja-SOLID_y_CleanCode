@@ -9,6 +9,8 @@ public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
     [SerializeField] private int _initialHealth = 100;
 
     private int _currentHealth;
+
+    // Other components (sound, effects...) can react to these without this class knowing about them
     public event Action Damaged;
     public event Action Healed;
 
@@ -16,21 +18,19 @@ public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
     {
         Reset();
     }
+
     public void Reset()
     {
         _currentHealth = _initialHealth;
-        _playerHud.SetHealth(_currentHealth.ToString());     
+        _playerHud.SetHealth(_currentHealth.ToString());
     }
-    
+
     public void ReceiveDamage(int damage)
     {
-        // Update current health with the damage
         _currentHealth -= damage;
-        // Update hud
         _playerHud.SetHealth(_currentHealth.ToString());
         Damaged?.Invoke();
 
-        // if is death then Game Over
         if (_currentHealth <= 0)
         {
             /* Is not a good idea to use singletons patter to do that because this makes it difficult to test,
@@ -42,7 +42,6 @@ public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
 
     public void Heal(int quantityToHeal)
     {
-        // Check that the health is in the limits
         _currentHealth = math.min(_currentHealth + quantityToHeal, _initialHealth);
         _playerHud.SetHealth(_currentHealth.ToString());
         Healed?.Invoke();

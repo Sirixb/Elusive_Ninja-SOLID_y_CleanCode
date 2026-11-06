@@ -26,7 +26,6 @@ public class ObstacleSpawner : MonoBehaviour
             if (_timeToNextSpawn < 0)
             {
                 CalculateTimeToNextSpawn();
-                // Spawn obstacle
                 _obstaclesSpawned.Add(Instantiate(_obstaclePrefab,
                                              _spawnPoints[Random.Range(0, _spawnPoints.Length - 1)].transform.position,
                                              Quaternion.identity));

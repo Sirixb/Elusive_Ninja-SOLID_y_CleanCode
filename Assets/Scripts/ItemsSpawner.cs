@@ -5,14 +5,7 @@ using Random = UnityEngine.Random;
 
 public class ItemsSpawner : MonoBehaviour
 {
-    //public enum ItemTypes
-    //{
-    //    PermanentSpeed,
-    //    Heal
-    //}
     [SerializeField] private string[] _itemIds;
-    //[SerializeField] private SpeedItem _speedItem;
-    //[SerializeField] private HealItem _healItem;
 
     [SerializeField] private AbstractItems[] _prefabItems;
     private Dictionary<string, AbstractItems> _idToItemsPrefabs;
@@ -20,7 +13,7 @@ public class ItemsSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private float _minSpawnInterval = 2;
     [SerializeField] private float _maxSpawnInterval = 4;
-    
+
 
     private List<GameObject> _spawnedItems = new List<GameObject>();
     private bool _isSpawnAvailable;
@@ -34,11 +27,12 @@ public class ItemsSpawner : MonoBehaviour
             _idToItemsPrefabs.Add(prefabItem.Id, prefabItem);
         }
     }
+
     private void Start()
     {
         CalculateTimeToNextSpawn();
     }
-    
+
     private void Update()
     {
         if (_isSpawnAvailable)
@@ -47,34 +41,18 @@ public class ItemsSpawner : MonoBehaviour
             if (_timeToNextSpawn < 0)
             {
                 CalculateTimeToNextSpawn();
-                // Get random item to spawn
-                SpawnItem(/*(ItemTypes)*/ _itemIds[ Random.Range(0, _itemIds/*Enum.GetNames(typeof(ItemTypes))*/.Length)]);
+                SpawnItem(_itemIds[Random.Range(0, _itemIds.Length)]);
             }
         }
     }
+
     private void CalculateTimeToNextSpawn()
     {
         _timeToNextSpawn = Random.Range(_minSpawnInterval, _maxSpawnInterval);
     }
 
-    private void SpawnItem(string id/*ItemTypes type*/)
+    private void SpawnItem(string id)
     {
-        // Spawn the items in random position
-        //switch (type)
-        //{
-        //    case ItemTypes.PermanentSpeed:
-        //        _items.Add(Instantiate(_speedItem,
-        //                               _spawnPoints[Random.Range(0, _spawnPoints.Length - 1)].transform.position,
-        //                               Quaternion.identity).gameObject);
-        //        break;
-        //    case ItemTypes.Heal:
-        //        _items.Add(Instantiate(_healItem,
-        //                               _spawnPoints[Random.Range(0, _spawnPoints.Length - 1)].transform.position,
-        //                               Quaternion.identity).gameObject);
-        //        break;
-        //    default:
-        //        throw new ArgumentOutOfRangeException(nameof(type), type, null);
-        //}
         AbstractItems itemToInstantiate;
         if (!_idToItemsPrefabs.TryGetValue(id, out itemToInstantiate))
         {
@@ -95,7 +73,7 @@ public class ItemsSpawner : MonoBehaviour
 
         _isSpawnAvailable = false;
     }
-    
+
     public void StartSpawning()
     {
         _isSpawnAvailable = true;

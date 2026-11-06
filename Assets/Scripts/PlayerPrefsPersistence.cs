@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerPrefsPersistence /*Persistence*/ : ILoader, ISaver
+public class PlayerPrefsPersistence : ILoader, ISaver
 {
     private readonly string DurationKey= "duration";
 

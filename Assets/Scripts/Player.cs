@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-/* Controls the player movement and player health */
+/* Groups the player controllers (health and movement) */
 public class Player : MonoBehaviour
 {
     [SerializeField] private HealtController  _healtController;

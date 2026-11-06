@@ -3,7 +3,6 @@
 /* Set permanent speed power up */
 public class SpeedItem : AbstractItems
 {
-    //private ItemsManager.ItemTypes type = ItemsManager.ItemTypes.PermanentSpeed;
     [SerializeField] private float _speedToAssign;
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -14,6 +13,6 @@ public class SpeedItem : AbstractItems
             player.SetSpeed(_speedToAssign);
             Destroy(gameObject);
         }
-        
+
     }
 }
