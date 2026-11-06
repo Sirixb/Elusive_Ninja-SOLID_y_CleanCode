@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Drunk
+  _duration: 5
 --- !u!114 &4779816137219018118
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class MovementController : MonoBehaviour
     private IMovable _drunkMovable;
 
     private IMovable _currentMovable;
+    public event Action DrunkStarted;
+    public event Action SpeedChanged;
 
     private void Awake()
     {
@@ -59,11 +62,13 @@ public class MovementController : MonoBehaviour
     public void SetSpeed(float newSpeed)
     {
         _currentSpeed = newSpeed;
+        SpeedChanged?.Invoke();
     }
     //Adicion
     public void SetDrunk(float drunkDuration)
     {
         _currentMovable = _drunkMovable;
+        DrunkStarted?.Invoke();
         //_isDrunk = true;
         StartCoroutine(DisableDrunk(drunkDuration));
     }

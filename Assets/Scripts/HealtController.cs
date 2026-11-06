@@ -1,4 +1,5 @@
-﻿using Unity.Mathematics;
+﻿using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
@@ -8,6 +9,8 @@ public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
     [SerializeField] private int _initialHealth = 100;
 
     private int _currentHealth;
+    public event Action Damaged;
+    public event Action Healed;
 
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
         _currentHealth -= damage;
         // Update hud
         _playerHud.SetHealth(_currentHealth.ToString());
+        Damaged?.Invoke();
 
         // if is death then Game Over
         if (_currentHealth <= 0)
@@ -41,6 +45,7 @@ public class HealtController : MonoBehaviour ,IHealReceiver, IDamageReceiver
         // Check that the health is in the limits
         _currentHealth = math.min(_currentHealth + quantityToHeal, _initialHealth);
         _playerHud.SetHealth(_currentHealth.ToString());
+        Healed?.Invoke();
     }
 
 }
